@@ -63,22 +63,26 @@ class LaunchPage extends Component {
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </div>
-        <div style={{ marginTop: 40 }}>
-          <Typography variant={'h5'} gutterBottom color={'secondary'}>
-            What would you like to do?
-          </Typography>
-          <Link href={'/quiz/new'} variant="h6" color={'secondary'}>
-            Create a new quiz
-          </Link>
-          <br />
-          <Link variant="h6" color={'secondary'}>
-            Edit an existing quiz
-          </Link>
-          <br />
-          <Link variant="h6" color={'secondary'}>
-            View results from previous quizzes
-          </Link>
-        </div>
+        {this.state.roles === 'Instructor' ? (
+          <div style={{ marginTop: 40 }}>
+            <Typography variant={'h5'} gutterBottom color={'secondary'}>
+              What would you like to do?
+            </Typography>
+            <Link href={'/quiz/new'} variant="h6" color={'secondary'}>
+              Create a new quiz
+            </Link>
+            <br />
+            <Link variant="h6" color={'secondary'}>
+              Edit an existing quiz
+            </Link>
+            <br />
+            <Link variant="h6" color={'secondary'}>
+              View results from previous quizzes
+            </Link>
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     );
   }
