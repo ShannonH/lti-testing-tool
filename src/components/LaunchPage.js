@@ -1,11 +1,9 @@
 import {
-  Card,
-  CardContent,
-  Grid,
   ListItemText,
   Typography,
   ListItem,
   List,
+  Link,
   withStyles,
   ExpansionPanel,
   ExpansionPanelDetails,
@@ -39,29 +37,19 @@ class LaunchPage extends Component {
     });
   }
 
-  handleChange = () => {
-    if (this.state.isExpanded) {
-      this.setState({ isExpanded: false });
-    } else if (!this.state.isExpanded) {
-      this.setState({ isExpanded: true });
-    }
-  };
-
   render() {
     const { classes } = this.props;
     return (
       <div style={{ margin: 20 }}>
         <Typography variant={'h6'} gutterBottom color={'secondary'}>
-          Welcome, {this.state.lis_person_name_given}! <br />
-          <br />
           You were brought here by a {this.state.lti_message_type}.<br />
           <br />
         </Typography>
         <div className={classnames(classes.expansionPanel)}>
-          <ExpansionPanel expanded={this.state.isExpanded} onChange={this.handleChange} elevation={10}>
+          <ExpansionPanel elevation={10}>
             <ExpansionPanelSummary expandIcon={<ExpandMore />}>
               <Typography className={classnames(classes.expansionPanelHeading)}>
-                Expand to view the rest of the information that {this.state.tool_consumer_instance_name} sent over.
+                Expand to view the rest of the information that was sent over.
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
@@ -76,38 +64,20 @@ class LaunchPage extends Component {
           </ExpansionPanel>
         </div>
         <div style={{ marginTop: 40 }}>
-          <Typography variant={'h6'} gutterBottom color={'secondary'}>
+          <Typography variant={'h5'} gutterBottom color={'secondary'}>
             What would you like to do?
           </Typography>
-          <Grid container direction="row" justify="flex-start" alignItems="flex-start">
-            <Grid item md={2}>
-              <Card elevation={10} className={classnames(classes.card)}>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" color={'secondary'}>
-                    Create a new quiz
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item md={2}>
-              <Card elevation={10} className={classnames(classes.card)}>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" color={'secondary'}>
-                    Edit an existing quiz
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item md={2}>
-              <Card elevation={10} className={classnames(classes.card)}>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" color={'secondary'}>
-                    View results from previous quizzes
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
+          <Link href={'/quiz/new'} variant="h6" color={'secondary'}>
+            Create a new quiz
+          </Link>
+          <br />
+          <Link variant="h6" color={'secondary'}>
+            Edit an existing quiz
+          </Link>
+          <br />
+          <Link variant="h6" color={'secondary'}>
+            View results from previous quizzes
+          </Link>
         </div>
       </div>
     );
