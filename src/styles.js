@@ -1,16 +1,19 @@
 export const styles = theme => ({
   progress: {
-    align: 'center',
+    margin: 200,
+    size: 200,
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
     height: '100vh',
-    marginRight: 25,
+    margin: 30,
+    fontFamily: ['Helvetica Neue', 'Helvetica', 'Helvetica', 'Arial', 'sans-serif'],
   },
   textField: {
     margin: 15,
     width: '90%',
+    color: theme.palette.text.primary,
   },
   rightButton: {
     float: 'right',
@@ -36,5 +39,17 @@ export const styles = theme => ({
     maxWidth: 200,
     minWidth: 175,
     margin: 10,
+  },
+  appBar: {
+    borderBottomStyle: 'solid',
+    borderBottomWidth: '.001px',
+    borderBottomColor: '#c1c1c1',
+    height: '6.6875rem',
+  },
+  headerText: {
+    fontFamily: 'Noto serif, serif',
+    fontSize: '1.875rem',
+    paddingTop: 40,
+    paddingLeft: 20,
   },
 });

@@ -1,91 +1,79 @@
 import {
-  ListItemText,
-  Typography,
-  ListItem,
-  List,
-  Link,
-  withStyles,
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
+  Link,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+  withStyles,
 } from '@material-ui/core';
-import React, { Component } from 'react';
-import classnames from 'classnames';
 import { ExpandMore } from '@material-ui/icons';
-import { styles } from '../styles';
+import classnames from 'classnames';
+import React from 'react';
+import { styles } from '../../styles';
 
-let listItems = [];
-
-class LaunchPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isExpanded: false,
-    };
+function LaunchPage(props) {
+  let parameters = [];
+  for (let param in props.parameters) {
+    if (props.parameters.hasOwnProperty(param)) {
+      parameters.push(param + ' = ' + props.parameters[param]);
+    }
   }
-
-  componentDidMount() {
-    fetch('/lti_v1x').then(result => {
-      result.json().then(result => {
-        for (let param in result) {
-          if (result.hasOwnProperty(param)) {
-            this.setState({ [param]: result[param] });
-            listItems.push(param + ' = ' + result[param]);
-          }
-        }
-      });
-    });
-  }
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <div style={{ margin: 20 }}>
-        <Typography variant={'h6'} gutterBottom color={'secondary'}>
-          You were brought here by a {this.state.lti_message_type}.<br />
-          <br />
-        </Typography>
-        <div className={classnames(classes.expansionPanel)}>
-          <ExpansionPanel elevation={10}>
-            <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-              <Typography className={classnames(classes.expansionPanelHeading)}>
-                Expand to view the rest of the information that was sent over.
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <List dense disablePadding>
-                {listItems.map(item => (
-                  <ListItem key={item} dense className={classnames(classes.denseListItem)}>
-                    <ListItemText>{item}</ListItemText>
-                  </ListItem>
-                ))}
-              </List>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        </div>
-        {this.state.roles === 'Instructor' ? (
-          <div style={{ marginTop: 40 }}>
-            <Typography variant={'h5'} gutterBottom color={'secondary'}>
-              What would you like to do?
+  const { classes } = props;
+  return (
+    <div className={classnames(classes.content)}>
+      <Typography variant={'h6'} gutterBottom color={'textPrimary'}>
+        You were brought here by a {props.parameters.lti_message_type}.<br />
+        <br />
+      </Typography>
+      <div className={classnames(classes.expansionPanel)}>
+        <ExpansionPanel elevation={10}>
+          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+            <Typography className={classnames(classes.expansionPanelHeading)}>
+              Expand to view the rest of the information that was sent over.
             </Typography>
-            <Link href={'/quiz/new'} variant="h6" color={'secondary'}>
-              Create a new quiz
-            </Link>
-            <br />
-            <Link variant="h6" color={'secondary'}>
-              Edit an existing quiz
-            </Link>
-            <br />
-            <Link variant="h6" color={'secondary'}>
-              View results from previous quizzes
-            </Link>
-          </div>
-        ) : (
-          ''
-        )}
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <List dense disablePadding>
+              {parameters.map(item => (
+                <ListItem key={item} dense className={classnames(classes.denseListItem)}>
+                  <ListItemText>{item}</ListItemText>
+                </ListItem>
+              ))}
+            </List>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
       </div>
-    );
-  }
+      {props.parameters.roles.includes('Instructor') ? (
+        <div style={{ marginTop: 40 }}>
+          <Typography variant={'h5'} gutterBottom color={'textPrimary'}>
+            What would you like to do?
+          </Typography>
+          <Link href={'/quiz/new'} variant="h6" color={'textPrimary'}>
+            Create a new quiz
+          </Link>
+          <br />
+          <Link variant="h6" color={'textPrimary'}>
+            Edit an existing quiz
+          </Link>
+          <br />
+          <Link variant="h6" color={'textPrimary'}>
+            View results from previous quizzes
+          </Link>
+          <br />
+          <br />
+          <br />
+          <Link variant={'subtitle2'} color={'textPrimary'} href={'/settings'}>
+            View settings for this tool
+          </Link>
+        </div>
+      ) : (
+        ''
+      )}
+    </div>
+  );
 }
 
 export default withStyles(styles)(LaunchPage);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Typography, TextField, withStyles, Button } from '@material-ui/core';
 import classnames from 'classnames';
-import { styles } from '../styles';
+import { styles } from '../../styles';
 
 class Settings extends Component {
   render() {
